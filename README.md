@@ -1,4 +1,4 @@
-## without docker-composer
+## without docker-compose.yml
 
 ### Owncast
 
