@@ -1,0 +1,82 @@
+- [GitHub - benbusby/whoogle-search: A self-hosted, ad-free, privacy-respecting metasearch engine](https://github.com/benbusby/whoogle-search)
+- [Public Instances](https://github.com/benbusby/whoogle-search#public-instances)
+- Alternative： [[searxng]]
+
+## installation with Docker compose
+
+```bash
+cd /opt
+```
+
+```bash
+sudo git clone https://github.com/benbusby/whoogle-search.git && cd whoogle-search
+sudo docker compose up
+```
+
+## Modify Settings 修改配置
+
+- 删掉`docker-compose.yml` 里面的这几行注释：
+  ```yml
+  env_file: # Alternatively, load variables from whoogle.env
+    - /opt/whoogle-search/whoogle.env
+  ```
+- 创建`whoogle.env` ：
+  ```bash
+  sudo cp whoogle.template.env whoogle.env
+  ```
+- 修改环境变量：
+  ```bash
+  sudo vim whoogle.env
+  ```
+- 我的配置：
+
+```env
+# Theme (light, dark, or system)
+#WHOOGLE_CONFIG_THEME=system
+
+# Safe search mode
+#WHOOGLE_CONFIG_SAFE=1
+
+# Use social media site alternatives (nitter, bibliogram, etc)
+#WHOOGLE_CONFIG_ALTS=1
+
+# Use Tor if available
+#WHOOGLE_CONFIG_TOR=1
+
+# Open results in new tab
+WHOOGLE_CONFIG_NEW_TAB=1
+
+# Enable View Image option
+#WHOOGLE_CONFIG_VIEW_IMAGE=1
+
+# Search using GET requests only (exposes query in logs)
+#WHOOGLE_CONFIG_GET_ONLY=1
+
+# Remove everything except basic result cards from all search queries
+#WHOOGLE_MINIMAL=0
+
+# Set the number of results per page
+WHOOGLE_RESULTS_PER_PAGE=20
+
+# Controls visibility of autocomplete/search suggestions
+#WHOOGLE_AUTOCOMPLETE=1
+
+# The port where Whoogle will be exposed
+#EXPOSE_PORT=5000
+
+# Set instance URL
+WHOOGLE_CONFIG_URL=https://whoogle.org
+
+# Set custom CSS styling/theming
+WHOOGLE_CONFIG_STYLE=':root{--whoogle-logo:#c4a7e7;--whoogle-page-bg:#faf4ed;--whoogle-element-bg:#f2e9e1;--whoogle-text:#575279;--whoogle-contrast-text:#1f1d2e;--whoogle-secondary-text:#797593;--whoogle-result-bg:#faf4ed;--whoogle-result-title:#d7827e;--whoogle-result-url:#286983;--whoogle-result-visited:#907aa9;--whoogle-dark-logo:#c4a7e7;--whoogle-dark-page-bg:#191724;--whoogle-dark-element-bg:#1f1d2e;--whoogle-dark-text:#e0def4;--whoogle-dark-contrast-text:#e0def4;--whoogle-dark-secondary-text:#908caa;--whoogle-dark-result-bg:#393552;--whoogle-dark-result-title:#9ccfd8;--whoogle-dark-result-url:#3e8fb0;--whoogle-dark-result-visited:#c4a7e7}#whoogle-w{fill:#eb6f92}#whoogle-h{fill:#f6c177}#whoogle-o-1{fill:#ebbcba}#whoogle-o-2{fill:#31748f}#whoogle-g{fill:#9ccfd8}#whoogle-l{fill:#c4a7e7}#whoogle-e{fill:#908caa}'
+
+# Enable preferences encryption (requires key)
+#WHOOGLE_CONFIG_PREFERENCES_ENCRYPTED=1
+
+# Set Key to encode config in url
+#WHOOGLE_CONFIG_PREFERENCES_KEY="NEEDS_TO_BE_MODIFIED"
+```
+
+## 主题配置
+
+[User Contributed CSS Themes · benbusby/whoogle-search Wiki · GitHub](https://github.com/benbusby/whoogle-search/wiki/User-Contributed-CSS-Themes#nord-by-apmechev)

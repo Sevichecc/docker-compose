@@ -1,0 +1,21 @@
+version: '3'
+services:
+  postgresql:
+    image: postgres
+    container_name: postgresql
+    ports:
+      - 5436:5432
+    volumes:
+      - './postdata:/var/lib/postgresql/data'
+    environment:
+      - POSTGRES_PASSWORD=password #change this
+  nextcloud:
+    image: nextcloud
+    container_name: nextcloud
+    ports:
+      - 8048:80
+    links:
+      - 'postgresql:postgresqldbsss'
+    volumes:
+      - ./nextcloud:/var/www/html
+    restart: always

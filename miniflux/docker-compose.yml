@@ -1,0 +1,24 @@
+version: '3'
+services:
+  miniflux:
+    image: miniflux/miniflux:nightly
+    ports:
+      - '8008:8080'
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgres://miniflux:password@db/miniflux?sslmode=disable #change passward
+      - RUN_MIGRATIONS=1
+      - POLLING_FREQUENCY=60
+      - CREATE_ADMIN=1
+      - ADMIN_USERNAME=user #change  this
+      - ADMIN_PASSWORD=password #change  this
+    restart: unless-stopped
+
+  db:
+    image: postgres:14
+    environment:
+      - POSTGRES_USER=miniflux
+      - POSTGRES_PASSWORD=password #change  this
+    volumes:
+      - ./miniflux-db:/var/lib/postgresql/data

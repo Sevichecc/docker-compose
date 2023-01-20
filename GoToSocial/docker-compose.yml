@@ -1,0 +1,35 @@
+version: '3.3'
+
+services:
+  gotosocial:
+    image: superseriousbusiness/gotosocial:latest
+    container_name: gotosocial
+    user: 1000:1000
+    networks:
+      - gotosocial
+    environment:
+      GTS_HOST: example.org
+      GTS_DB_TYPE: sqlite
+      GTS_DB_ADDRESS: /gotosocial/storage/sqlite.db
+      GTS_LETSENCRYPT_ENABLED: 'false'
+      GTS_LETSENCRYPT_EMAIL_ADDRESS: ''
+      GTS_DB_USER: goto
+      GTS_DB_PASSWARD: password #change this
+      GTS_MEDIA_IMAGE_MAX_SIZE: 2097152
+      GTS_APPLICATION_NAME: GoToSocial
+      GTS_ACCOUNTS_REGISTRATIONS_OPEN: 'false'
+      GTS_ACCOUNTS_APPROVAL_REQUIRED: 'true'
+    ports:
+      - '443:8080'
+      ## For letsencrypt:
+      #- "80:80"
+      ## For reverse proxy setups:
+      #- "127.0.0.1:8080:8080"
+    volumes:
+      - ~/gotosocial/data:/gotosocial/storage
+    restart: 'always'
+
+networks:
+  gotosocial:
+    ipam:
+      driver: default

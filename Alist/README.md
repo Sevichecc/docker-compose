@@ -1,0 +1,2 @@
+- [github:alist-org/alist](https://github.com/alist-org/alist)
+- [website](https://alist.nn.ci/)

@@ -1,0 +1,52 @@
+version: '3.4'
+
+services:
+  synapse:
+    hostname: matrix
+    image: matrixdotorg/synapse:latest
+    restart: always
+    container_name: matrix_server
+    depends_on:
+      - db
+      - redis
+    ports:
+      - '127.0.0.1:8008:8008'
+    volumes:
+      - ./synapse/data:/data
+    networks:
+      - synapse_network
+      - external_network
+    healthcheck:
+      test: ['CMD-SHELL', 'curl -s localhost:8008/health || exit 1']
+
+  db:
+    image: postgres:14
+    restart: always
+    container_name: matrix_db
+    volumes:
+      - ./synapse/db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: synapse
+      POSTGRES_PASSWORD: changeme #change this
+      POSTGRES_DB: synapse
+      POSTGRES_INITDB_ARGS: "--encoding='UTF8' --lc-collate='C' --lc-ctype='C'"
+    networks:
+      - synapse_network
+    healthcheck:
+      test: ['CMD', 'pg_isready', '-U', 'synapse']
+
+  redis:
+    image: redis:6.0-alpine
+    restart: always
+    container_name: matrix_redis
+    volumes:
+      - ./synapse/redis:/data
+    networks:
+      - synapse_network
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+
+networks:
+  synapse_network:
+    internal: true
+  external_network:

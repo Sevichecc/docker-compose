@@ -1,0 +1,5 @@
+- [保存网页、稍后阅读，自建 Wallabag 服务也是一种选择 - 少数派](https://sspai.com/post/52979#!)
+- [GitHub - shaarli/Shaarli: The personal, minimalist, super-fast, database free, bookmarking service - community repo](https://github.com/shaarli/Shaarli/)
+- [Docker Hub](https://hub.docker.com/r/wallabag/wallabag/)
+- [Installation · GitBook](https://doc.wallabag.org/en/admin/installation/installation.html#installation)
+- [自建”稍后阅读“服务—— wallabag | ZHB's Blog](https://gkzhb.top/2019/04/wallabag/)

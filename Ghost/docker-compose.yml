@@ -1,0 +1,23 @@
+version: '3.7'
+
+services:
+  ghost:
+    image: ghost:5.2.4
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - '127.0.0.1:3400:2368'
+    volumes:
+      - ./content:/var/lib/ghost/content
+      - ./config.json:/var/lib/ghost/config.production.json
+    env_file:
+      - ./db.env
+
+  db:
+    image: mysql:8.0.29
+    restart: always
+    volumes:
+      - ./data:/var/lib/mysql
+    env_file:
+      - ./db.env
