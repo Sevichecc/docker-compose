@@ -1,0 +1,15 @@
+version: '2.1'
+
+services:
+  snapdrop:
+    image: ghcr.io/linuxserver/snapdrop
+    container_name: snapdrop
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Shanghai
+    volumes:
+      - ./config:/config
+    ports:
+      - 82:80
+    restart: unless-stopped
