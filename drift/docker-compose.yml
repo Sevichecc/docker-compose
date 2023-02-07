@@ -1,0 +1,32 @@
+services:
+  server:
+    build:
+      context: ./server
+      args:
+        - NODE_ENV=production
+    container_name: server
+    restart: unless-stopped
+    user: 1000:1000
+    environment:
+      - PORT
+      - JWT_SECRET=some_secret_code #changme
+      - SECRET_KEY=some_secret # change me!
+      - MEMORY_DB=true
+      - REGISTRATION_PASSWORD=some_secret # change me!
+      - ENABLE_ADMIN=true
+      - DRIFT_HOME=~/.drift
+    ports:
+      - '3000:3000'
+  client:
+    build:
+      context: ./client
+      args:
+        - API_URL=http://server:3000
+    container_name: client
+    restart: unless-stopped
+    user: 1000:1000
+    environment:
+      - API_URL=http://server:3000
+      - SECRET_KEY=some_secret # change me!
+    ports:
+      - '3001:3001'
